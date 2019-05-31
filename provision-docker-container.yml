@@ -6,7 +6,7 @@
            name: "ubuntu{{item}}"
            hostname: "ubuntu{{item}}"
            docker_host: "tcp://localhost:4243"
-           state: present
+           state: started
            image: "tektutor/ansible-ubuntu"
            ports:
               - "200{{item}}:22"
