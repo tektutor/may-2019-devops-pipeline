@@ -1,0 +1,18 @@
+- name: Install all the necessary build tools to compile microservice
+  hosts: all
+  vars:
+    software_tools:
+       - default-jdk
+       - git
+       - maven
+  tasks:
+     - name: Install all the build tools in CentOS 
+       when: ansible_distribution == "CentOS"
+       yum: name="{{item}}" state=latest
+       with_items: "{{software_tools}}"
+
+     - name: Install all the build tools in Ubuntu 
+       when: ansible_distribution == "Ubuntu"
+       apt: name="{{item}}" state=latest update_cache=yes
+       with_items: "{{software_tools}}"
+

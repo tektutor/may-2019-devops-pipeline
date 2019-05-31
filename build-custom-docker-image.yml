@@ -1,0 +1,26 @@
+- name: Build docker image to use them as ansible node
+  hosts: localhost
+  tasks:
+     - name: Install Extra Packages for Enterprise Linux (EPEL) in CentOS
+       when: ( ansible_distribution == "CentOS" and ansible_os_family == "RedHat" )
+       yum: name=epel-release state=latest
+
+     - name: Install Python Package Installer in CentOS
+       when: ( ansible_distribution == "CentOS" and ansible_os_family == "RedHat" )
+       yum: name=python-pip state=latest
+
+     - name: Install Python Package Installer in Ubuntu 
+       when: ( ansible_distribution == "Ubuntu" and ansible_os_family == "Debian" )
+       yum: name=python-pip state=latest update_cache=yes
+
+     - name: Install Docker-py python module
+       shell: pip install docker-py
+
+     - name: Build Ansible Ubuntu image
+       docker_image:
+          name: "tektutor/ansible-ubuntu"
+          dockerfile: UbuntuDockerfile
+          source: build
+          state: present 
+          docker_host: tcp://localhost:4243
+          path: "."

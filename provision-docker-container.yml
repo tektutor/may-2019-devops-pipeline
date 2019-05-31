@@ -1,0 +1,16 @@
+- name: Provision docker container
+  hosts: localhost
+  tasks:
+     - name: Provision a docker container
+       docker_container:
+           name: "ubuntu{{item}}"
+           hostname: "ubuntu{{item}}"
+           docker_host: "tcp://localhost:4243"
+           state: present
+           image: "tektutor/ansible-ubuntu"
+           ports:
+              - "200{{item}}:22"
+              - "800{{item}}:80"
+       with_sequence: start:1 end=2
+
+           
