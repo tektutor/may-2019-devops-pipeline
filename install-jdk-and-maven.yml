@@ -18,10 +18,8 @@
 
      - name: Install all the build tools in CentOS 
        when: ansible_distribution == "CentOS"
-       yum: name="{{item}}" state=latest
-       with_items: "software_tools_{{ansible_distribution|lower}}"
+       yum: name="{{software_tools_centos}}" state=latest
 
      - name: Install all the build tools in Ubuntu 
        when: ansible_distribution == "Ubuntu"
-       apt: name="{{item}}" state=latest update_cache=yes
-       with_items: "software_tools_{{ansible_distribution|lower}}"
+       apt: name="{{software_tools_ubuntu}}" state=latest update_cache=yes
