@@ -1,10 +1,16 @@
 - name: Install all the necessary build tools to compile microservice
   hosts: all
   vars:
-    software_tools:
-       - default-jdk
+    software_tools_centos:
+       - java-1.8.0-openjdk-devel
        - git
        - maven
+
+    software_tools_ubuntu:
+       - openjdk-8-jdk
+       - git 
+       - maven
+
   tasks:
      - name: Install Extra Package for Enterprise Linux in CentOS 
        when: ansible_distribution == "CentOS"
@@ -13,10 +19,9 @@
      - name: Install all the build tools in CentOS 
        when: ansible_distribution == "CentOS"
        yum: name="{{item}}" state=latest
-       with_items: "{{software_tools}}"
+       with_items: "{{software_tools}}_{{ansible_distribution|lower}}"
 
      - name: Install all the build tools in Ubuntu 
        when: ansible_distribution == "Ubuntu"
        apt: name="{{item}}" state=latest update_cache=yes
-       with_items: "{{software_tools}}"
-
+       with_items: "{{software_tools}}_{{ansible_distribution|lower}}"
