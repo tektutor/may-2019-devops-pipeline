@@ -11,6 +11,6 @@
            ports:
               - "200{{item}}:22"
               - "800{{item}}:80"
-       with_sequence: start:1 end=2
+       with_sequence: start=1 end=2
 
            
