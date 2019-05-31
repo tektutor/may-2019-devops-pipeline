@@ -6,6 +6,10 @@
        - git
        - maven
   tasks:
+     - name: Install Extra Package for Enterprise Linux in CentOS 
+       when: ansible_distribution == "CentOS"
+       yum: name=epel-release state=latest
+
      - name: Install all the build tools in CentOS 
        when: ansible_distribution == "CentOS"
        yum: name="{{item}}" state=latest
