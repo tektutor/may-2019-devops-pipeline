@@ -89,7 +89,7 @@
                 <version>2.2</version>
                 <configuration>
                     <id>tomcat</id>
-                    <url>http://192.168.2.156:8085/manager/text</url>
+                    <url>http://127.0.0.1:8085/manager/text</url>
                     <server>tomcat</server>
                 </configuration>
             </plugin>
